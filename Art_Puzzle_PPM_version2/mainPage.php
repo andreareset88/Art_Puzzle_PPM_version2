@@ -195,6 +195,10 @@
             helper.doc('numStepBoxSecondPlayer').style.display = '';
             helper.doc('numStepBoxSecondPlayer').style.textAlign = 'center';
 
+            puzzleGame.stepsNumber = 0;
+            puzzleGame.stepsNumberSecondPlayer = 0;
+            puzzleGame.clock();
+
             start();
         }
 

@@ -6,15 +6,20 @@ var puzzleGame = {
     startTime: new Date().getTime(),
 
     startGame: function (images, gridSize, user1, user2) {
-        this.setImage(images, gridSize, user1, user2);
+        /*this.setImage(images, gridSize, user1, user2);
         helper.doc('mainPanel').style.display = 'block';
         helper.shuffle('sortable');
-        helper.shuffle('sortableSecondPlayer');
+        helper.shuffle('sortableSecondPlayer');*/
 
         this.stepsNumber = 0;
         this.stepsNumberSecondPlayer = 0;
         this.startTime = new Date().getTime();
         this.clock();
+
+        this.setImage(images, gridSize, user1, user2);
+        helper.doc('mainPanel').style.display = 'block';
+        helper.shuffle('sortable');
+        helper.shuffle('sortableSecondPlayer');
     },
 
     clock: function () {
@@ -124,6 +129,8 @@ var puzzleGame = {
                         helper.doc('timerEnd').innerHTML = (parseInt((now - puzzleGame.startTime) / 1000, 10));
                         helper.doc('stepEnd').innerHTML = incrementedStep;
                         helper.doc('showEndGame').innerHTML = helper.doc('endGame').innerHTML;
+                        helper.doc('showEndGame').style.removeProperty("display");
+                        helper.doc('showEndGame').setAttribute('class', 'popupText');
                         document.getElementById('sortable').setAttribute('style', 'display:none');
 
                         for (var j=0; j<(gridSize*gridSize); j++){
