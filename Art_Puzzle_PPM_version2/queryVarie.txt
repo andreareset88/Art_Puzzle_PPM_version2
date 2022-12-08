@@ -1,0 +1,15 @@
+USE my_artpuzzle;
+DROP TABLE IF EXISTS images;
+CREATE TABLE IF NOT EXISTS images (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, title VARCHAR(50) NOT NULL, author VARCHAR(30) NOT NULL, date_of_realization DATE NOT NULL, description VARCHAR(300), content BLOB);
+
+{src: 'images/David-Resized.jpg', title: 'David di Michelangelo'},
+            {src: 'images/statue-of-libertyResized.jpg', title: 'Statua della Libertà'},
+            {src: 'images/napoleone-Resized.jpg', title: 'Napoleone valica le Alpi'},
+            {src: 'images/Urlo-resized.jpg', title: 'Urlo'},
+            {src: 'images/Viandante-sul-mare-resized.jpg', title: 'Viandante sul mare'},
+            {src: 'images/bacio-hayez-resized.jpg', title: 'Il bacio (di Hayez)'},
+            {src: 'images/il-bacio-di-klimt-resized.jpg', title: 'Il bacio (di Klimt)'},
+            {src: 'images/notte-stellata-resized.jpg', title: 'Notte stellata'},
+            {src: 'images/ragazza-orecchino-resized.jpg', title: 'La Ragazza col Turbante'}
+
+INSERT INTO images VALUES (1,'Statua della Libertà', 'Pippo', '1699-12-12', 'statua costruita a ellis island', LOAD_FILE('statue-of-libertyResized.jpg'));

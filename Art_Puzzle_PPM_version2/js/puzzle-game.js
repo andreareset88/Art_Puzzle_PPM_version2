@@ -102,8 +102,7 @@ var puzzleGame = {
             //       2) Ricontrollare immagini sfalsate: integrare qui php4x4Backup.html
             //       3) test schermi
             //       4) Match al meglio di 3 (chi arriva primo a 2)
-            //       5) Ricontrollare endGame
-            //       6) Differenziare reload e start
+            //       5) Ricontrollare endGame dopo start + reload
 
             sortableLi.ondragstart = (event) => event.dataTransfer.setData('data', event.target.id);
             fillableLi.ondragover = (event) => event.preventDefault();
