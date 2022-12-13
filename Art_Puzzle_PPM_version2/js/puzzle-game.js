@@ -11,6 +11,11 @@ var puzzleGame = {
         helper.shuffle('sortable');
         helper.shuffle('sortableSecondPlayer');*/
 
+        this.setValuesForEndGame('winner', '');
+        this.setValuesForEndGame('imageTitle', '');
+        this.setValuesForEndGame('stepEnd', '');
+        this.setValuesForEndGame('timerEnd', '');
+
         this.stepsNumber = 0;
         this.stepsNumberSecondPlayer = 0;
         this.startTime = new Date().getTime();
@@ -20,6 +25,25 @@ var puzzleGame = {
         helper.doc('mainPanel').style.display = 'block';
         helper.shuffle('sortable');
         helper.shuffle('sortableSecondPlayer');
+    },
+
+    setValuesForEndGame: function (spanName, value) {
+        var endGameSpanNodes = document.getElementById('endGame').getElementsByTagName('span');
+
+        var endGameSpanNodesLength = endGameSpanNodes.length;
+
+        for (var currentItem=0; currentItem<endGameSpanNodesLength; currentItem++){
+            var currentSpan = endGameSpanNodes[currentItem];
+            if (currentSpan.id == spanName){
+                currentSpan.innerHTML = value;
+            } else if (currentSpan.id == spanName){
+                currentSpan.innerHTML = value;
+            } else if (currentSpan.id == spanName){
+                currentSpan.innerHTML = value;
+            } else if (currentSpan.id == spanName){
+                currentSpan.innerHTML = value;
+            }
+        }
     },
 
     clock: function () {
@@ -98,11 +122,11 @@ var puzzleGame = {
 
             sortableLiSecondPlayer.setAttribute('draggable', 'true');
 
-            // TODO: 1) Impostare connessione db per php aggiunta descrizione
-            //       2) Ricontrollare immagini sfalsate: integrare qui php4x4Backup.html
-            //       3) test schermi
-            //       4) Match al meglio di 3 (chi arriva primo a 2)
-            //       5) Ricontrollare endGame dopo start + reload
+            // TODO: 1) Query per location immagine
+            //       2) Aggiunta descrizione alla fine
+            //       3) Ricontrollare immagini sfalsate: integrare qui php4x4Backup.html
+            //       4) test schermi
+            //       5) Match al meglio di 3 (chi arriva primo a 2)
 
             sortableLi.ondragstart = (event) => event.dataTransfer.setData('data', event.target.id);
             fillableLi.ondragover = (event) => event.preventDefault();
@@ -123,10 +147,14 @@ var puzzleGame = {
                     helper.doc('stepPanel').innerHTML = incrementedStep;
 
                     if (isImageSorted(valuesId)) {
-                        helper.doc('winner').innerHTML = user1.toString();
+                        this.setValuesForEndGame('winner', user1.toString());
+                        this.setValuesForEndGame('imageTitle', image.title);
+                        this.setValuesForEndGame('timerEnd', (parseInt((now - puzzleGame.startTime) / 1000, 10)));
+                        this.setValuesForEndGame('stepEnd', incrementedStep);
+                        /*helper.doc('winner').innerHTML = user1.toString();
                         helper.doc('imageTitle').innerHTML = image.title;
                         helper.doc('timerEnd').innerHTML = (parseInt((now - puzzleGame.startTime) / 1000, 10));
-                        helper.doc('stepEnd').innerHTML = incrementedStep;
+                        helper.doc('stepEnd').innerHTML = incrementedStep;*/
                         helper.doc('showEndGame').innerHTML = helper.doc('endGame').innerHTML;
                         helper.doc('showEndGame').style.removeProperty("display");
                         helper.doc('showEndGame').setAttribute('class', 'popupText');
@@ -169,10 +197,14 @@ var puzzleGame = {
                     helper.doc('stepPanelSecondPlayer').innerHTML = incrementedStepSecondPlayer;
 
                     if (isImageSorted(valuesIdSecondPlayer)) {
-                        helper.doc('winner').innerHTML = user2.toString();
+                        this.setValuesForEndGame('winner', user2.toString());
+                        this.setValuesForEndGame('imageTitle', imageSecondPlayer.title);
+                        this.setValuesForEndGame('timerEnd', (parseInt((now - puzzleGame.startTime) / 1000, 10)));
+                        this.setValuesForEndGame('stepEnd', incrementedStepSecondPlayer);
+                        /*helper.doc('winner').innerHTML = user2.toString();
                         helper.doc('imageTitle').innerHTML = imageSecondPlayer.title;
                         helper.doc('timerEnd').innerHTML = (parseInt((now - puzzleGame.startTime) / 1000, 10));
-                        helper.doc('stepEnd').innerHTML = incrementedStepSecondPlayer;
+                        helper.doc('stepEnd').innerHTML = incrementedStepSecondPlayer;*/
                         helper.doc('showEndGame').innerHTML = helper.doc('endGame').innerHTML;
                         helper.doc('showEndGame').setAttribute('class', 'popupText');
                         document.getElementById('sortableSecondPlayer').setAttribute('style', 'display:none');
