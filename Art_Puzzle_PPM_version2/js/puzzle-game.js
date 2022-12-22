@@ -122,10 +122,9 @@ var puzzleGame = {
 
             sortableLiSecondPlayer.setAttribute('draggable', 'true');
 
-            // TODO: 1) Query per location immagine
-            //       2) Aggiunta descrizione alla fine
+            // TODO  2) Aggiunta descrizione alla fine
             //       3) Ricontrollare immagini sfalsate: integrare qui php4x4Backup.html
-            //       4) test schermi
+            //       4) test schermi e touch
             //       5) Match al meglio di 3 (chi arriva primo a 2)
 
             sortableLi.ondragstart = (event) => event.dataTransfer.setData('data', event.target.id);

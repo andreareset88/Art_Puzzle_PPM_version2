@@ -113,7 +113,7 @@
 
 
     <div id="endGame" style="display: none;">
-        <div style="background-color: #f1580e; padding: 5px 10px 20px 10px; text-align: center; ">
+        <div id ="endGameDeep" style="background-color: #f1580e; padding: 5px 10px 20px 10px; text-align: center; ">
 
             <h2 style="text-align: center">Game Over</h2>
             <br/>
@@ -129,20 +129,63 @@
         </div>
     </div>
 
+    <?php
+
+        $connection = mysqli_connect('localhost', 'artpuzzle', '', 'my_artpuzzle'); // Establishing Connection with Server
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        } else {
+            echo "Connection established<br>";
+        }
+
+        $path='';
+        $title='';
+        $query = mysqli_query($connection, 'select * from images');
+        echo "Query effettuata <br>";
+        $row_number = mysqli_num_rows($query);
+        echo "Numero righe: $row_number<br>";
+        $rows = array();
+
+    echo "<script> var images = new Array(); </script>";
+
+    while ($row = mysqli_fetch_array($query)) {
+        $path = $row['located_at_path'];
+        $title = $row['title'];
+        echo "Path: $path - Title: $title";
+        echo "<br>";
+
+        echo "<script>
+
+            images.push({'src': '$path', 'title': '$title'});
+
+             </script>";
+
+    }
+    ?>
+
+
+
+
+
+
+
 
     <script>
-        var images = [
-            {src: 'images/David-Resized.jpg', title: 'David di Michelangelo'},
-            {src: 'images/statue-of-libertyResized.jpg', title: 'Statua della Libertà'},
-            {src: 'images/napoleone-Resized.jpg', title: 'Napoleone valica le Alpi'},
-            {src: 'images/Urlo-resized.jpg', title: 'Urlo'},
-            {src: 'images/Viandante-sul-mare-resized.jpg', title: 'Viandante sul mare'},
-            {src: 'images/bacio-hayez-resized.jpg', title: 'Il bacio (di Hayez)'},
-            {src: 'images/il-bacio-di-klimt-resized.jpg', title: 'Il bacio (di Klimt)'},
-            {src: 'images/notte-stellata-resized.jpg', title: 'Notte stellata'},
-            {src: 'images/ragazza-orecchino-resized.jpg', title: 'La Ragazza col Turbante'}
-        ];
 
+
+
+    /*var images = [
+        {src: 'images/David-Resized.jpg', title: 'David di Michelangelo'},
+        {src: 'images/statue-of-libertyResized.jpg', title: 'Statua della Libertà'},
+        {src: 'images/napoleone-Resized.jpg', title: 'Napoleone valica le Alpi'},
+        {src: 'images/Urlo-resized.jpg', title: 'Urlo'},
+        {src: 'images/Viandante-sul-mare-resized.jpg', title: 'Viandante sul mare'},
+        {src: 'images/bacio-hayez-resized.jpg', title: 'Il bacio (di Hayez)'},
+        {src: 'images/il-bacio-di-klimt-resized.jpg', title: 'Il bacio (di Klimt)'},
+        {src: 'images/notte-stellata-resized.jpg', title: 'Notte stellata'},
+        {src: 'images/ragazza-orecchino-resized.jpg', title: 'La Ragazza col Turbante'}
+    ];
+*/
         window.onload = function () {
             puzzleGame.startGame(images, 4, "<?php echo strtoupper($_POST['user1']) ?>", "<?php echo strtoupper($_POST['user2']) ?>");
 
